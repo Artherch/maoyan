@@ -1,0 +1,74 @@
+import '@tarojs/async-await'
+import Taro, { Component } from '@tarojs/taro'
+import { Provider } from '@tarojs/redux'
+
+// import Index from './pages/index'
+import Movies from './pages/movies/movies'
+
+import configStore from './store'
+
+import './app.scss'
+
+const store = configStore()
+
+class App extends Component {
+
+  config = {
+    pages: [
+      'pages/movies/movies',
+      'pages/person/person',
+      'pages/cinema/cinema',
+    ],
+    window: {
+      backgroundTextStyle: '#fff',
+      navigationBarBackgroundColor: '#e54847',
+      navigationBarTitleText: '猫眼电影',
+      navigationBarTextStyle: '#fff',
+      enablePullDownRefresh:true,
+    },
+    tabBar:{
+      color:'#333',
+      selectedColor:'#f03d37',
+      backgroundColor:'#fff',
+      borderStyle:'ddd',
+      list:[{
+        pagePath:'pages/movies/movies',
+        text:'电影',
+        iconPath:'./assets/images/index.png',
+        selectedIconPath:'./assets/images/index_focus.png'
+      },{
+        pagePath:"pages/cinema/cinema",
+        text:"影院",
+        iconPath: './assets/images/themeOld.png',
+        selectedIconPath: './assets/images/theme.png'
+      },{
+        pagePath:"pages/person/person",
+        text:"我的",
+        iconPath: './assets/images/person.png',
+        selectedIconPath: './assets/images/personSelect.png'
+      }]
+    }
+  }
+
+  componentDidMount () {}
+
+  componentDidShow () {}
+
+  componentDidHide () {}
+
+  componentCatchError () {}
+
+  componentDidCatchError () {}
+
+  // 在 App 类中的 render() 函数没有实际作用
+  // 请勿修改此函数
+  render () {
+    return (
+      <Provider store={store}>
+        <Movies />
+      </Provider>
+    )
+  }
+}
+
+Taro.render(<App />, document.getElementById('app'))
